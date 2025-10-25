@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+rm -rf install
+
+pkg update -y || true
+
+ARCH=$(uname -m)
+
+case "$ARCH" in
+    aarch64|arm64)
+        DNSTT_CLIENT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/dnstt-client-arm64"
+        DNSTT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/menu-arm64"
+        ;;
+    armv7l|armv7)
+        DNSTT_CLIENT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/dnstt-client-armv7"
+        DNSTT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/menu-armv7"
+        ;;
+    armv8l)
+        DNSTT_CLIENT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/dnstt-client-armv8l"
+        DNSTT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/menu-armv8l"
+        ;;
+    *)
+        echo "Unsupported architecture: $ARCH"
+        echo "Supported: aarch64/arm64, armv7l/armv7, armv8l"
+        exit 1
+        ;;
+esac
+
+# Ensure PREFIX is set (Termux or fallback) and that bin exists
+if [[ -z "${PREFIX:-}" ]]; then
+    if [[ -d "/data/data/com.termux/files/usr" ]]; then
+        PREFIX="/data/data/com.termux/files/usr"
+    else
+        PREFIX="/usr/local"
+    fi
+fi
+
+mkdir -p "$PREFIX/bin"
+
+# Download with fail-on-error and follow redirects
+if curl -fsSL -o "$PREFIX/bin/dnstt-client" "$DNSTT_CLIENT_URL"; then
+    chmod +x "$PREFIX/bin/dnstt-client"
+else
+    echo "Failed to download dnstt-client from $DNSTT_CLIENT_URL" >&2
+    exit 1
+fi
+
+if curl -fsSL -o "$PREFIX/bin/dnstt" "$DNSTT_URL"; then
+    chmod +x "$PREFIX/bin/dnstt"
+    mv -f "$PREFIX/bin/dnstt" "$PREFIX/bin/client"
+else
+    echo "Failed to download dnstt menu from $DNSTT_URL" >&2
+    exit 1
+fi
+
+YELLOW='\033[1;33m'
+GREEN='\033[1;32m'
+NC='\033[0m'
+
+echo -e "${GREEN}Ready! Type 'client' to start${NC}"
