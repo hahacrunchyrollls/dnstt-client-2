@@ -9,15 +9,15 @@ ARCH=$(uname -m)
 
 case "$ARCH" in
     aarch64|arm64)
-        DNSTT_CLIENT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/dnstt-client-arm64"
+        DNSTT_CLIENT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/dnstt-client-linux-arm64"
         DNSTT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/menu-arm64"
         ;;
     armv7l|armv7)
-        DNSTT_CLIENT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/dnstt-client-armv7"
+        DNSTT_CLIENT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/dnstt-client-linux-armv7"
         DNSTT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/menu-armv7"
         ;;
     armv8l)
-        DNSTT_CLIENT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/dnstt-client-armv8l"
+        DNSTT_CLIENT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/dnstt-client-linux-armv8l"
         DNSTT_URL="https://github.com/hahacrunchyrollls/dnstt-client-2/raw/refs/heads/main/menu-armv8l"
         ;;
     *)
