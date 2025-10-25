@@ -8,7 +8,7 @@ https://github.com/termux/termux-app/releases
 ## COPY AND PASTE THE SCRIPT TO TERMUX:
 
 ```
-curl -fsSL https://raw.githubusercontent.com/hahacrunchyrollls/dnstt-client/refs/heads/main/install | bash
+curl -fsSL https://raw.githubusercontent.com/hahacrunchyrollls/dnstt-client-2/refs/heads/main/install | bash
 ```
 
 ## TO OPEN MAIN MENU:
